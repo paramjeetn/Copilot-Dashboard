@@ -24,15 +24,14 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
 
             setFileData({ medical, recommendation, retrieve });
           } else if (selectedTab === "guideline") {
-            const { guideline_file_path, guideline_medical_condition_path, guideline_criteria_path } = data[selectedKey];
+            const { guideline_medical_condition_path, guideline_criteria_path } = data[selectedKey];
 
-            const [guideline, medical, criteria] = await Promise.all([
-              fetchFile(guideline_file_path),
+            const [medical, criteria] = await Promise.all([
               fetchFile(guideline_medical_condition_path),
               fetchFile(guideline_criteria_path),
             ]);
 
-            setFileData({ guideline, medical, criteria });
+            setFileData({ medical, criteria });
           }
         } catch (error) {
           console.error("Error loading files:", error);
@@ -46,13 +45,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
   const fetchFile = async (filePath: string) => {
     const response = await fetch(filePath);
     if (response.ok) {
-      const fileExtension = filePath.split('.').pop();
-      if (fileExtension === 'json') {
-        const jsonData = await response.json();
-        return JSON.stringify(jsonData, null, 2); // Return JSON in readable format
-      } else {
-        return await response.text(); // Handle text, yaml files
-      }
+      return await response.text();
     } else {
       return "Error loading file";
     }
@@ -62,16 +55,19 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
     <div className="h-full p-4">
       {selectedTab === "patient" && selectedKey && (
         <div className="h-full flex flex-col justify-between">
+          {/* Medical Condition */}
           <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Medical Condition</h2>
             <pre className="bg-gray-100 p-2">{fileData.medical}</pre>
           </div>
 
+          {/* Recommendation */}
           <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Recommendation</h2>
             <pre className="bg-gray-100 p-2">{fileData.recommendation}</pre>
           </div>
 
+          {/* Retrieved Candidates */}
           <div className="flex-1 overflow-auto">
             <h2 className="font-semibold mb-2">Retrieved Candidates</h2>
             <pre className="bg-gray-100 p-2">{fileData.retrieve}</pre>
@@ -81,19 +77,22 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
 
       {selectedTab === "guideline" && selectedKey && (
         <div className="h-full flex flex-col justify-between">
-          <div className="flex-1 overflow-auto mb-4">
-            <h2 className="font-semibold mb-2">Guideline Content</h2>
-            <pre className="bg-gray-100 p-2">{fileData.guideline}</pre>
-          </div>
-
+          {/* Guideline Medical Condition */}
           <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Guideline Medical Condition</h2>
             <pre className="bg-gray-100 p-2">{fileData.medical}</pre>
           </div>
 
-          <div className="flex-1 overflow-auto">
+          {/* Guideline Criteria */}
+          <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Guideline Criteria</h2>
             <pre className="bg-gray-100 p-2">{fileData.criteria}</pre>
+          </div>
+
+          {/* Main Guideline Path */}
+          <div className="flex-1 overflow-auto">
+            <h2 className="font-semibold mb-2">Main Guideline Path (PDF)</h2>
+            <p className="bg-gray-100 p-2">{data[selectedKey].main_guideline_path}</p>
           </div>
         </div>
       )}

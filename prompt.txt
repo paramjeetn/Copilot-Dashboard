@@ -1,165 +1,168 @@
-the ui shouldnt be like this 
-
-on the left panel 
-on the top there shoud be a search bar to do typeahead search
-just below it two tabs (patients , guidelines)
-if user selects guidelines and then search something on the serchbar you just just do search on the guidelines folder in which is in the json
-and it on patient tabs you search on patient folder from json
-
-and if user clicks on  patient profile from search bar  you show the patient profile text on the left panel and on the right panel you first show the golden reccomedation below it patient_001_medical_conditions.txt below it reccommendations.json below it retrieve_results.json below it 
-
-and if user clicks on guideline name from search bar  you show theguideline text on the left panel and on the right panel you first show the guidelines_medical_conditions.txt below it guidelines_criteria.txt below it file.pdf (the main file of the guideline 
-
-see the folder strucutre you may find a hint 
-see the type files are to be shown in typeahead search 
-for guidelines (Search up all the files in the json and only show whose have a file name as guidelines.yaml or guidelines.txt but in search bar dont show guidelines instead replace it with the folder name in which they are in(just the immediate folder in which they are in) )
-and for patient profile just show their file name in search bar and when user clicks just show those text in left panel
-
-
-
-
-
-
-
-
-
-
-also add an lgtm button in the buttom of every small panel in the right panel 
-and save the status in a json 
-first keep all the lgtm button greyout and of user clicks on it make it green and save it status in a separate json maybe you can make a folder strucutre only for right panel files and store that 
-
-
-
-
-
-
-so I am making a frontend page 
-where there will be two major panel left panel and right panel 
-in left panel ther will be two tabs on top patient , guideline 
-patient are the patient_001.txt , or patient_002.txt etc in those folders you can see 
-And guidelines can be guidelines.yaml or guidelines.txt 
-so you have to keep a search functionality type ahead search where user can just search up the file and see that 
-in search bar you dont show guideline.txt or guidelines.yaml as they are same always you rather show their grand parent folder name 
-and for patient profile you show thier grand_parent_folder_name/patient_001 
-like this when user selects any they can see it 
-
-and in the right panel there are more small panel stacked vertically there 
-they are different when user in patient tab or guidelines tab 
-when user is in patient tab and clicks on a patient profile from search bar you load its patient profile text in left side and on right panel you load 4 things 
-(1) golden reccomendation as this is an input box so keep an input box and tell to input something as save it in data/golden_Reccomendation/patient_id.json (you can get the id in the 1st line of patient profile)
-and if there exist some golden reccomendation of that id in the golden_Reccomendation folder you just show that and keep the input box to append something or delete that user decides and a save button 
-keep in dont let user get to another tab or patient profile before saving
-(2) patient_medical condition which is given as patient_001_medical condition in the same folder or patient_002_medical condition in the same folder 
-(3) reccomendation , see every patient profile has an {
-id:someid on it 1st line or 2nd if you consider { as an line 
-you pick that id then go to output folder and inside it reccomendation folder  and there must be an file name that_id.json that is that patients reccomendation, show that
-(4) and retrieve results for this also use the same patient id in previous step go to output/retrieve_result there you can get that_id.json that is the retieve result show that in frontend 
-
-this all for patient tab 
-and in guidelines tab 
-in when user selects on an guideline in the right panel there would be 3 thing 
-(1) medical condition you can get that in the same folder at same level names guideline_medical_condition or sometimes just medical_conditions.txt but it is at the same level as guideline
-(2) guideline criteria it is also at the same level named guideline_Criteria.txt
-(3) main guidelines.txt for this wait just keep a box I will tell what to do later 
-
-here is an example patient profile 
 {
-  "patient_id": "04712763-1d9d-4bb0-8854-za6a1a1b8330",
-  "patient_name": "Emily Thompson",
-  "age": "36",
-  "gender": "Female",
-  "current_symptoms": "Symmetrically enlarged thyroid, recent onset of mild orbitopathy, fatigue, weight loss, palpitations.",
-  "current_medications": "None",
-  "patient_risk_factors": "No recent exposure to iodine, no family history of thyroid disorders, postpartum 6 months ago.",
-  "lab_reports": "TRAb: Positive (15 IU/L), TSH: <0.01 mIU/L, Free T3: 7.5 pmol/L, Free T4: 22 pmol/L, Thyroglobulin: Normal, RAIU at 24 hours: 45%.",
-  "diagnostic_tests_and_results": "Ultrasonography with color flow Doppler: Increased thyroidal blood flow, consistent with Graves' disease; TSI: Positive",
-  "profile_summary": "Emily Thompson, a 36-year-old female, presents with symptoms of fatigue, weight loss, and palpitations. She has a symmetrically enlarged thyroid and recent onset of mild orbitopathy. Lab reports indicate a positive TRAb and TSI, suppressed TSH, elevated T3 and T4, and normal thyroglobulin levels. RAIU at 24 hours is 45%. Doppler ultrasonography shows increased thyroidal blood flow, consistent with Graves' disease. No recent iodine exposure or family history of thyroid disorders, postpartum 6 months ago."
+  "patient": {
+    "04712763-1d9d-4bb0-8854-za6a1a1b8330": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04712763-1d9d-4bb0-8854-za6a1a1b8330.json",
+      "retrieve_result_path": "output/retrieve_results/04712763-1d9d-4bb0-8854-za6a1a1b8330.json"
+    },
+    "s1f4cd1b-f446-4b43-8837-232186d0w213": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_002.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_002_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/s1f4cd1b-f446-4b43-8837-232186d0w213.json",
+      "retrieve_result_path": "output/retrieve_results/s1f4cd1b-f446-4b43-8837-232186d0w213.json"
+    },
+    "04712761-1d9q-4bb1-2132-1a1a3a1b8329": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04712761-1d9q-4bb1-2132-1a1a3a1b8329.json",
+      "retrieve_result_path": "output/retrieve_results/04712761-1d9q-4bb1-2132-1a1a3a1b8329.json"
+    },
+    "04712763-1d9d-1nn2-2312-1a5a3a1b8320": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04712763-1d9d-1nn2-2312-1a5a3a1b8320.json",
+      "retrieve_result_path": "output/retrieve_results/04712763-1d9d-1nn2-2312-1a5a3a1b8320.json"
+    },
+    "c0f4cd8b-f146-2e24-1231-600186d0d608": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/patients/patient_profile_002.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/patients/patient_profile_002_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/c0f4cd8b-f146-2e24-1231-600186d0d608.json",
+      "retrieve_result_path": "output/retrieve_results/c0f4cd8b-f146-2e24-1231-600186d0d608.json"
+    },
+    "04712763-1d9d-1nn2-2131-1a5a3a1b8320": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04712763-1d9d-1nn2-2131-1a5a3a1b8320.json",
+      "retrieve_result_path": "output/retrieve_results/04712763-1d9d-1nn2-2131-1a5a3a1b8320.json"
+    },
+    "04703824-1d9d-4bb0-8854-1a5a3a1b8320": {
+      "patient_profile_file_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04703824-1d9d-4bb0-8854-1a5a3a1b8320.json",
+      "retrieve_result_path": "output/retrieve_results/04703824-1d9d-4bb0-8854-1a5a3a1b8320.json"
+    },
+    "04712763-1d9d-4bb0-8854-1a5a3a1b8320": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/04712763-1d9d-4bb0-8854-1a5a3a1b8320.json",
+      "retrieve_result_path": "output/retrieve_results/04712763-1d9d-4bb0-8854-1a5a3a1b8320.json"
+    },
+    "c0f4cd8b-f146-4b43-8837-600186d0d608": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_002.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_002_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/c0f4cd8b-f146-4b43-8837-600186d0d608.json",
+      "retrieve_result_path": "output/retrieve_results/c0f4cd8b-f146-4b43-8837-600186d0d608.json"
+    },
+    "bd81520e-baad-42fb-a183-991557fa0359": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_003.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/patients/patient_profile_003_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/bd81520e-baad-42fb-a183-991557fa0359.json",
+      "retrieve_result_path": "output/retrieve_results/bd81520e-baad-42fb-a183-991557fa0359.json"
+    },
+    "fc93f502-1b76-4b4d-9b4d-efe62988f3da": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/fc93f502-1b76-4b4d-9b4d-efe62988f3da.json",
+      "retrieve_result_path": "output/retrieve_results/fc93f502-1b76-4b4d-9b4d-efe62988f3da.json"
+    },
+    "69926f26-fb94-4d74-b7dd-067b8b402a5a": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_002.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_002_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/69926f26-fb94-4d74-b7dd-067b8b402a5a.json",
+      "retrieve_result_path": "output/retrieve_results/69926f26-fb94-4d74-b7dd-067b8b402a5a.json"
+    },
+    "45ca2c29-200d-449e-a427-d3fdf63bf246": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_003.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_003_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/45ca2c29-200d-449e-a427-d3fdf63bf246.json",
+      "retrieve_result_path": "output/retrieve_results/45ca2c29-200d-449e-a427-d3fdf63bf246.json"
+    },
+    "d3b91637-bbbe-41f9-bf3f-baf6be68fe0c": {
+      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/patients/patient_profile_001.txt",
+      "medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/patients/patient_profile_001_medical_conditions.txt",
+      "reccomendation_path": "output/recommendations/d3b91637-bbbe-41f9-bf3f-baf6be68fe0c.json",
+      "retrieve_result_path": "output/retrieve_results/d3b91637-bbbe-41f9-bf3f-baf6be68fe0c.json"
+    }
+  },
+  "guideline": {
+    "manage": {
+      "parent_file_name": "manage",
+      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml",
+      "guideline_medical_condition_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/diabetes/extracted_guidelines/ckd/Chronic_Kidney_Disease_abridged.pdf"
+    },
+    "screening": {
+      "parent_file_name": "screening",
+      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines.yaml",
+      "guideline_medical_condition_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/diabetes/extracted_guidelines/ckd/Chronic_Kidney_Disease_abridged.pdf"
+    },
+    "algo_risk_stratification": {
+      "parent_file_name": "algo_risk_stratification",
+      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines.yaml",
+      "guideline_medical_condition_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/Comprehensive_Medical_Evaluation_abridged.pdf"
+    },
+    "comorbidities": {
+      "parent_file_name": "comorbidities",
+      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines.yaml",
+      "guideline_medical_condition_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/Comprehensive_Medical_Evaluation_abridged.pdf"
+    },
+    "glycemic_management": {
+      "parent_file_name": "glycemic_management",
+      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines.yaml",
+      "guideline_medical_condition_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/hospital_abridged.pdf"
+    },
+    "recommendation_001": {
+      "parent_file_name": "recommendation_001",
+      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines.txt",
+      "guideline_medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/American_Thyroid_Assoc_Hyperthyroid_guidelines_2016.pdf"
+    },
+    "recommendation_002": {
+      "parent_file_name": "recommendation_002",
+      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines.txt",
+      "guideline_medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/American_Thyroid_Assoc_Hyperthyroid_guidelines_2016.pdf"
+    },
+    "recommendation_003": {
+      "parent_file_name": "recommendation_003",
+      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines.txt",
+      "guideline_medical_condition_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines_criteria.txt",
+      "main_guideline_path": "data/guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/American_Thyroid_Assoc_Hyperthyroid_guidelines_2016.pdf"
+    }
+  }
 }
 
 
-the way you are finding patient_profile is wrong rather regex
-it always patient_profile_some 3 digit number.txt
+see this is my data 
+it has two main object patient and guideline 
+and inside it there are many singular objects 
 
-{
- patient:{
-   patient_profile_001:{
-    patient_profile_grandparent_folder_name:
-    patient_profile_file_path:
-    medical_condition_path:
-    reccomedation_path:
-    retrieve_result_path:
-   },
-   patient_profile_002:{
-    patient_profile_grandparent_folder_name:
-    patient_profile_file_path:
-    medical_condition_path:
-    reccomedation_path:
-    retrieve_result_path:
-   }
- }
- guideline:{
-    diabetes:{
-      guideline1:{
-        parent_file_name:
-        guideline_file_path:
-        guideline_medical_condition_path:
-        guideline_criteria_path:
-        main_guideline_path: 
-      },
-      guideline2:{
-        parent_file_name:
-        guideline_file_path:
-        guideline_medical_condition_path:
-        guideline_criteria_path:
-        main_guideline_path: 
-      }
-    }
-    thyroid:{
-       guideline1:{
-        parent_file_name:
-        guideline_file_path:
-        guideline_medical_condition_path:
-        guideline_criteria_path:
-        main_guideline_path: 
-      },
-      guideline2:{
-        parent_file_name:
-        guideline_file_path:
-        guideline_medical_condition_path:
-        guideline_criteria_path:
-        main_guideline_path: 
-      }
-    }
- }
+so in frontend I want to have an left panel and an right panel 
+in left panel there would be two tabs patient and guidelines 
+so user clicks any of them and there would be a search bar 
+if user is in patient tabs you just show options for all the key in the patinet object and if  user is inside the guideline tab you show all the key of guidelines as an option 
+and if user clicks any of them you load the guideline file path or patient profile file path which ever it is in the left panel 
 
-}
+and for right panel 
+if user is in patient tab in left panel in left panel you show 4 subsections 
+medical condition, reccomendation , retrieved candidates in text format those file can be text, yaml or json 
 
-
-
-
-
-
-
-
-
-
-
-
-you are doing it wrong 
-suppose you want to get patient part of json 
-you go to data there you will see guidelines, there you gown two level down , there you will see a folder called extracted_guidelines there you into every folder inside it , and in each folder you will see a sub guidelines, there you will see a patient folder inside it you will get patient_profile_001.txt, patient_medical_condition_001.txt and so on ...
-example path of a patient profile : src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_001.txt
-
-example path of a patient_medical_condition.txt:src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_002_medical_conditions.txt
-
-for guideline part of json 
-
-you go to data there you will see guidelines, there you gown two level down , there you will see a folder called extracted_guidelines there you into every folder inside it , and in each folder you will see a sub guidelines, there you will see a three files, guideline.txt, guidelines_criteria.txt, and guideline_medical_condition.txt 
-save those 
-example guideline.txt path : src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml
-
-example guideline_medical_conditon path: src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_medical_condition.txt
-
-example guideline_criteria path : 
-src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guideline_criteria.txt
-
+and is user is in guidelines of left panel and clicks a option , then in right panel you load guideline medical condition , guideline criteria, and main guideline path 
+for main guideline dont load the text as its a pdf rather just keep the path of it and load other two 
+do it in react vite 
+see to read files dont worry , they are in my src folder , there is a data folder and they all lie in it , you can just read direclty without backend 
+and dont sue fs to read rather use fetch
+as vite doesnt allow fs being a client load resources maybe fetch and file path can do so 
