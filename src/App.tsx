@@ -1,46 +1,29 @@
-// src/App.tsx
-import React, { useState } from 'react';
-import RightPanel from './components/RightPanel';
-import SearchBar from './components/ SearchBar';
-import data from './patientAndGuidelineData.json'; // Import the unified JSON
+import { useState } from "react";
+import LeftPanel from "./components/LeftPanel";
+import RightPanel from "./components/RightPanel";
+import patientAndGuidelineData from "./patientAndGuidelineData.json";
 
 const App = () => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [tab, setTab] = useState<'patients' | 'guidelines'>('patients'); // Default is patients tab
+  const [selectedTab, setSelectedTab] = useState<"patient" | "guideline">("patient");
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
-  const handleSearch = (id: string) => {
-    setSelectedId(id);
-  };
-
-  const handleTabChange = (newTab: 'patients' | 'guidelines') => {
-    setTab(newTab);
-    setSelectedId(null); // Clear the selection when switching tabs
-  };
-
-  const selectedData = tab === 'patients' ? data.patient[selectedId || ''] : data.guideline[selectedId || ''];
+  const data = selectedTab === "patient" ? patientAndGuidelineData.patient : patientAndGuidelineData.guideline;
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '50%', padding: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <button onClick={() => handleTabChange('patients')} style={{ fontWeight: tab === 'patients' ? 'bold' : 'normal' }}>
-            Patients
-          </button>
-          <button onClick={() => handleTabChange('guidelines')} style={{ fontWeight: tab === 'guidelines' ? 'bold' : 'normal' }}>
-            Guidelines
-          </button>
-        </div>
-
-        <SearchBar onSearch={handleSearch} tab={tab} />
-
-        <div>
-          <h3>{tab === 'patients' ? 'Patient Profile' : 'Guideline'}</h3>
-          <p>{selectedId ? (tab === 'patients' ? selectedData?.patient_profile_file_path : selectedData?.guideline_file_path) : 'No selection'}</p>
-        </div>
+    <div className="h-screen flex">
+      {/* Left Panel */}
+      <div className="w-1/2 border-r border-gray-300">
+        <LeftPanel
+          data={data}
+          onSelect={(key) => setSelectedKey(key)}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
       </div>
 
-      <div style={{ width: '50%', padding: '20px' }}>
-        <RightPanel data={selectedData} tab={tab} />
+      {/* Right Panel */}
+      <div className="w-1/2">
+        <RightPanel selectedKey={selectedKey} data={data} selectedTab={selectedTab} />
       </div>
     </div>
   );

@@ -1,80 +1,103 @@
-// src/components/RightPanel.tsx
-import React, { useState, useEffect } from 'react';
-import fs from 'fs';
-import path from 'path';
-import { Box, Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from "react";
 
 interface RightPanelProps {
-  data: {
-    goldenRecommendation?: string;
-    medicalConditions?: string;
-    recommendations?: string;
-    retrieveResults?: string;
-  } | null;
+  selectedKey: string | null;
+  data: any;
+  selectedTab: "patient" | "guideline";
 }
 
-// Helper function to read the file synchronously (works only in Node.js environment)
-const readFileSync = (filePath: string) => {
-  try {
-    const absolutePath = path.resolve('src/data', filePath); // Ensure relative to the 'src/data'
-    const content = fs.readFileSync(absolutePath, 'utf-8');
-    return content;
-  } catch (err) {
-    console.error(`Error reading file: ${filePath}`, err);
-    return 'Error reading file';
-  }
-};
+const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab }) => {
+  const [fileData, setFileData] = useState<any>({});
 
-const RightPanel: React.FC<RightPanelProps> = ({ data }) => {
-  const [goldenRecommendationContent, setGoldenRecommendationContent] = useState<string>('');
-  const [medicalConditionsContent, setMedicalConditionsContent] = useState<string>('');
-  const [recommendationsContent, setRecommendationsContent] = useState<string>('');
-  const [retrieveResultsContent, setRetrieveResultsContent] = useState<string>('');
-
-  // Read file contents when component is mounted and data is passed
   useEffect(() => {
-    if (data) {
-      if (data.goldenRecommendation) {
-        const content = readFileSync(data.goldenRecommendation);
-        setGoldenRecommendationContent(content);
-      }
-      if (data.medicalConditions) {
-        const content = readFileSync(data.medicalConditions);
-        setMedicalConditionsContent(content);
-      }
-      if (data.recommendations) {
-        const content = readFileSync(data.recommendations);
-        setRecommendationsContent(content);
-      }
-      if (data.retrieveResults) {
-        const content = readFileSync(data.retrieveResults);
-        setRetrieveResultsContent(content);
-      }
+    if (selectedKey && data[selectedKey]) {
+      const fetchFiles = async () => {
+        try {
+          if (selectedTab === "patient") {
+            const { medical_condition_path, reccomendation_path, retrieve_result_path } = data[selectedKey];
+
+            const [medical, recommendation, retrieve] = await Promise.all([
+              fetchFile(medical_condition_path),
+              fetchFile(reccomendation_path),
+              fetchFile(retrieve_result_path),
+            ]);
+
+            setFileData({ medical, recommendation, retrieve });
+          } else if (selectedTab === "guideline") {
+            const { guideline_file_path, guideline_medical_condition_path, guideline_criteria_path } = data[selectedKey];
+
+            const [guideline, medical, criteria] = await Promise.all([
+              fetchFile(guideline_file_path),
+              fetchFile(guideline_medical_condition_path),
+              fetchFile(guideline_criteria_path),
+            ]);
+
+            setFileData({ guideline, medical, criteria });
+          }
+        } catch (error) {
+          console.error("Error loading files:", error);
+        }
+      };
+
+      fetchFiles();
     }
-  }, [data]);
+  }, [selectedKey, data, selectedTab]);
+
+  const fetchFile = async (filePath: string) => {
+    const response = await fetch(filePath);
+    if (response.ok) {
+      const fileExtension = filePath.split('.').pop();
+      if (fileExtension === 'json') {
+        const jsonData = await response.json();
+        return JSON.stringify(jsonData, null, 2); // Return JSON in readable format
+      } else {
+        return await response.text(); // Handle text, yaml files
+      }
+    } else {
+      return "Error loading file";
+    }
+  };
 
   return (
-    <Box>
-      {/* Golden Recommendation */}
-      <Typography variant="h6">Golden Recommendation</Typography>
-      <Typography variant="body1">{goldenRecommendationContent || 'No data'}</Typography>
-      <Button variant="contained" color="primary">LGTM</Button>
+    <div className="h-full p-4">
+      {selectedTab === "patient" && selectedKey && (
+        <div className="h-full flex flex-col justify-between">
+          <div className="flex-1 overflow-auto mb-4">
+            <h2 className="font-semibold mb-2">Medical Condition</h2>
+            <pre className="bg-gray-100 p-2">{fileData.medical}</pre>
+          </div>
 
-      {/* Medical Conditions */}
-      <Typography variant="h6">Medical Conditions</Typography>
-      <Typography variant="body1">{medicalConditionsContent || 'No data'}</Typography>
-      <Button variant="contained" color="primary">LGTM</Button>
+          <div className="flex-1 overflow-auto mb-4">
+            <h2 className="font-semibold mb-2">Recommendation</h2>
+            <pre className="bg-gray-100 p-2">{fileData.recommendation}</pre>
+          </div>
 
-      {/* Recommendations */}
-      <Typography variant="h6">Recommendations</Typography>
-      <Typography variant="body1">{recommendationsContent || 'No data'}</Typography>
-      <Button variant="contained" color="primary">LGTM</Button>
+          <div className="flex-1 overflow-auto">
+            <h2 className="font-semibold mb-2">Retrieved Candidates</h2>
+            <pre className="bg-gray-100 p-2">{fileData.retrieve}</pre>
+          </div>
+        </div>
+      )}
 
-      {/* Retrieve Results */}
-      <Typography variant="h6">Retrieve Results</Typography>
-      <Typography variant="body1">{retrieveResultsContent || 'No data'}</Typography>
-      <Button variant="contained" color="primary">LGTM</Button>
-    </Box>
+      {selectedTab === "guideline" && selectedKey && (
+        <div className="h-full flex flex-col justify-between">
+          <div className="flex-1 overflow-auto mb-4">
+            <h2 className="font-semibold mb-2">Guideline Content</h2>
+            <pre className="bg-gray-100 p-2">{fileData.guideline}</pre>
+          </div>
+
+          <div className="flex-1 overflow-auto mb-4">
+            <h2 className="font-semibold mb-2">Guideline Medical Condition</h2>
+            <pre className="bg-gray-100 p-2">{fileData.medical}</pre>
+          </div>
+
+          <div className="flex-1 overflow-auto">
+            <h2 className="font-semibold mb-2">Guideline Criteria</h2>
+            <pre className="bg-gray-100 p-2">{fileData.criteria}</pre>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
