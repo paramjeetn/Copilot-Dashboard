@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 interface LeftPanelProps {
   data: any;
@@ -11,6 +11,11 @@ interface LeftPanelProps {
 const LeftPanel: React.FC<LeftPanelProps> = ({ data, onSelect, selectedTab, selectedKey, setSelectedTab }) => {
   const [fileContent, setFileContent] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+
+  // Log data for debugging
+  useEffect(() => {
+    console.log("Data in LeftPanel:", data);
+  }, [selectedTab, selectedKey, data]);
 
   // Load the profile or guideline file content based on the selected key
   useEffect(() => {

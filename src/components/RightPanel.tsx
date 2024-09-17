@@ -89,10 +89,18 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
             <pre className="bg-gray-100 p-2">{fileData.criteria}</pre>
           </div>
 
-          {/* Main Guideline Path */}
+          {/* Main Guideline Path - Don't attempt to read it, just display the path */}
           <div className="flex-1 overflow-auto">
             <h2 className="font-semibold mb-2">Main Guideline Path (PDF)</h2>
-            <p className="bg-gray-100 p-2">{data[selectedKey].main_guideline_path}</p>
+            {data[selectedKey]?.main_guideline_path ? (
+              <p className="bg-gray-100 p-2">
+                <a href={data[selectedKey].main_guideline_path} target="_blank" rel="noopener noreferrer">
+                  View PDF
+                </a>
+              </p>
+            ) : (
+              <p>No PDF available</p>
+            )}
           </div>
         </div>
       )}
