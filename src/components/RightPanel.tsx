@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// Import the FS API provided by vite-plugin-fs
+import fs from 'vite-plugin-fs/browser';
 
 interface RightPanelProps {
   selectedKey: string | null;
@@ -8,7 +10,10 @@ interface RightPanelProps {
 
 const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab }) => {
   const [fileData, setFileData] = useState<any>({});
+  const [goldenRecommendation, setGoldenRecommendation] = useState<string>(""); // Text content of the recommendation
+  const [isEditing, setIsEditing] = useState<boolean>(false); // Control whether the text is editable or not
 
+  // Fetch file content when selectedKey or tab changes
   useEffect(() => {
     if (selectedKey && data[selectedKey]) {
       const fetchFiles = async () => {
@@ -23,15 +28,27 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
             ]);
 
             setFileData({ medical, recommendation, retrieve });
+
+            // Try to read the golden recommendation from the golden_recommendation folder
+            const recommendationPath = `./public/data/output/golden_recommendation/${selectedKey}.txt`;
+            try {
+              const savedRecommendation = await fs.readFile(recommendationPath);
+              setGoldenRecommendation(savedRecommendation || ""); // Load existing content for display
+              setIsEditing(false); // Disable editing initially
+            } catch (err) {
+              console.log("File doesn't exist yet, initializing empty text");
+              setGoldenRecommendation(""); // Initialize as empty if the file doesn't exist
+              setIsEditing(true); // Enable editing if no file exists
+            }
           } else if (selectedTab === "guideline") {
             const { guideline_medical_condition_path, guideline_criteria_path } = data[selectedKey];
 
-            const [medical, criteria] = await Promise.all([
+            const [medicalCondition, guidelineCriteria] = await Promise.all([
               fetchFile(guideline_medical_condition_path),
-              fetchFile(guideline_criteria_path),
+              fetchFile(guideline_criteria_path)
             ]);
 
-            setFileData({ medical, criteria });
+            setFileData({ medicalCondition, guidelineCriteria });
           }
         } catch (error) {
           console.error("Error loading files:", error);
@@ -41,6 +58,20 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
       fetchFiles();
     }
   }, [selectedKey, data, selectedTab]);
+
+  // Handle enabling the edit mode
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  // Save the updated golden recommendation to the file when user clicks save
+  const handleSave = async () => {
+    if (selectedKey) {
+      const filePath = `./public/data/output/golden_recommendation/${selectedKey}.txt`;
+      await fs.writeFile(filePath, goldenRecommendation); // Save the updated text
+      setIsEditing(false); // Disable editing after save
+    }
+  };
 
   const fetchFile = async (filePath: string) => {
     const response = await fetch(filePath);
@@ -72,6 +103,41 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
             <h2 className="font-semibold mb-2">Retrieved Candidates</h2>
             <pre className="bg-gray-100 p-2">{fileData.retrieve}</pre>
           </div>
+
+          {/* Golden Recommendation Box */}
+          <div className="flex-1 overflow-auto mt-4">
+            <h2 className="font-semibold mb-2">Golden Recommendation</h2>
+            
+            {/* Display text area for editing */}
+            {isEditing ? (
+              <textarea
+                className="w-full p-2 border rounded bg-gray-100"
+                placeholder="Enter Golden Recommendation here..."
+                value={goldenRecommendation}
+                onChange={(e) => setGoldenRecommendation(e.target.value)} // Handle text changes
+                rows={4}
+              />
+            ) : (
+              <pre className="bg-gray-100 p-2">{goldenRecommendation || "No Golden Recommendation yet"}</pre>
+            )}
+
+            {/* Show Edit or Save buttons */}
+            {isEditing ? (
+              <button
+                onClick={handleSave}
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                onClick={handleEdit}
+                className="mt-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+              >
+                Edit
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -80,16 +146,16 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedKey, data, selectedTab 
           {/* Guideline Medical Condition */}
           <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Guideline Medical Condition</h2>
-            <pre className="bg-gray-100 p-2">{fileData.medical}</pre>
+            <pre className="bg-gray-100 p-2">{fileData.medicalCondition}</pre>
           </div>
 
           {/* Guideline Criteria */}
           <div className="flex-1 overflow-auto mb-4">
             <h2 className="font-semibold mb-2">Guideline Criteria</h2>
-            <pre className="bg-gray-100 p-2">{fileData.criteria}</pre>
+            <pre className="bg-gray-100 p-2">{fileData.guidelineCriteria || "No Criteria available"}</pre>
           </div>
 
-          {/* Main Guideline Path - Don't attempt to read it, just display the path */}
+          {/* Main Guideline Path */}
           <div className="flex-1 overflow-auto">
             <h2 className="font-semibold mb-2">Main Guideline Path (PDF)</h2>
             {data[selectedKey]?.main_guideline_path ? (
