@@ -53,20 +53,33 @@ const generatePatientAndGuidelineData = (fullFileStructure) => {
       // Check for patient profiles using regex for patient_profile_<number>.txt
       const patientProfileMatch = node.name.match(/^patient_profile_(\d{3})\.txt$/);
       if (patientProfileMatch) {
-        const patientNumber = patientProfileMatch[1]; // Get the patient number from the file name
-        const profilePath = node.path;
-        const medicalConditionPath = profilePath.replace('.txt', '_medical_conditions.txt');
+        const profileFilePath = node.path;
+        const patientProfileData = fs.readFileSync(`./src/data/${profileFilePath}`, 'utf-8');
 
-        // Verify if the medical condition file exists
-        const medicalConditionExists = fs.existsSync(path.join('./src/data', medicalConditionPath));
+        // Extract the patient ID from the file content (assuming it's on the first line)
+        const patientIdMatch = patientProfileData.match(/"patient_id":\s*"(.+?)"/);
+        if (patientIdMatch) {
+          const patientId = patientIdMatch[1]; // Extract patient ID
 
-        // Create a unique key for the patient based on their profile number
-        result.patient[patientNumber] = {
-          patient_profile_file_path: profilePath,
-          medical_condition_path: medicalConditionExists ? medicalConditionPath : 'Not Found',
-        };
+          const medicalConditionPath = node.path.replace('.txt', '_medical_conditions.txt');
+          const recommendationPath = `output/recommendations/${patientId}.json`;
+          const retrieveResultPath = `output/retrieve_results/${patientId}.json`;
 
-        console.log(`Processed patient profile: patient_profile_${patientNumber}`);
+          // Verify if the files exist
+          const medicalConditionExists = fs.existsSync(path.join('./src/data', medicalConditionPath));
+          const recommendationExists = fs.existsSync(path.join('./src/data', recommendationPath));
+          const retrieveResultExists = fs.existsSync(path.join('./src/data', retrieveResultPath));
+
+          // Store patient data using the patient_id as the key
+          result.patient[patientId] = {
+            patient_profile_file_path: profileFilePath,
+            medical_condition_path: medicalConditionExists ? medicalConditionPath : 'Not Found',
+            reccomendation_path: recommendationExists ? recommendationPath : 'Not Found',
+            retrieve_result_path: retrieveResultExists ? retrieveResultPath : 'Not Found',
+          };
+
+          console.log(`Processed patient profile for ID: ${patientId}`);
+        }
       }
 
       // Check for guidelines (guidelines.txt or guidelines.yaml)

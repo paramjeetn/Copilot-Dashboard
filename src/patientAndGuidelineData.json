@@ -1,73 +1,60 @@
 {
-  "patient": {
-    "001": {
-      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/patients/patient_profile_001.txt",
-      "medical_condition_path": "Not Found"
-    },
-    "002": {
-      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_002.txt",
-      "medical_condition_path": "Not Found"
-    },
-    "003": {
-      "patient_profile_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/patients/patient_profile_003.txt",
-      "medical_condition_path": "Not Found"
-    }
-  },
+  "patient": {},
   "guideline": {
     "manage": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml",
+      "guideline_medical_condition_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "screening": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines.yaml",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines.yaml",
+      "guideline_medical_condition_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "algo_risk_stratification": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines.yaml",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines.yaml",
+      "guideline_medical_condition_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "comorbidities": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines.yaml",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines.yaml",
+      "guideline_medical_condition_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "glycemic_management": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines.yaml",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines.yaml",
+      "guideline_medical_condition_path": "diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "recommendation_001": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines.txt",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines.txt",
+      "guideline_medical_condition_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_001/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "recommendation_002": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines.txt",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines.txt",
+      "guideline_medical_condition_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_002/guidelines_criteria.txt",
       "main_guideline_path": ""
     },
     "recommendation_003": {
       "parent_file_name": "sub_guidelines",
-      "guideline_file_path": "guidelines/thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines.txt",
-      "guideline_medical_condition_path": "Not Found",
-      "guideline_criteria_path": "Not Found",
+      "guideline_file_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines.txt",
+      "guideline_medical_condition_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines_medical_condition.txt",
+      "guideline_criteria_path": "thyroid/extracted_guidelines/hyperthyroidism_and_thyrotoxicosis/sub_guidelines/recommendation_003/guidelines_criteria.txt",
       "main_guideline_path": ""
     }
   }
