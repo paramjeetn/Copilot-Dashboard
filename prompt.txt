@@ -1,0 +1,135 @@
+the ui shouldnt be like this 
+
+on the left panel 
+on the top there shoud be a search bar to do typeahead search
+just below it two tabs (patients , guidelines)
+if user selects guidelines and then search something on the serchbar you just just do search on the guidelines folder in which is in the json
+and it on patient tabs you search on patient folder from json
+
+and if user clicks on  patient profile from search bar  you show the patient profile text on the left panel and on the right panel you first show the golden reccomedation below it patient_001_medical_conditions.txt below it reccommendations.json below it retrieve_results.json below it 
+
+and if user clicks on guideline name from search bar  you show theguideline text on the left panel and on the right panel you first show the guidelines_medical_conditions.txt below it guidelines_criteria.txt below it file.pdf (the main file of the guideline 
+
+see the folder strucutre you may find a hint 
+see the type files are to be shown in typeahead search 
+for guidelines (Search up all the files in the json and only show whose have a file name as guidelines.yaml or guidelines.txt but in search bar dont show guidelines instead replace it with the folder name in which they are in(just the immediate folder in which they are in) )
+and for patient profile just show their file name in search bar and when user clicks just show those text in left panel
+
+
+
+
+
+
+
+
+
+
+also add an lgtm button in the buttom of every small panel in the right panel 
+and save the status in a json 
+first keep all the lgtm button greyout and of user clicks on it make it green and save it status in a separate json maybe you can make a folder strucutre only for right panel files and store that 
+
+
+
+
+
+
+so I am making a frontend page 
+where there will be two major panel left panel and right panel 
+in left panel ther will be two tabs on top patient , guideline 
+patient are the patient_001.txt , or patient_002.txt etc in those folders you can see 
+And guidelines can be guidelines.yaml or guidelines.txt 
+so you have to keep a search functionality type ahead search where user can just search up the file and see that 
+in search bar you dont show guideline.txt or guidelines.yaml as they are same always you rather show their grand parent folder name 
+and for patient profile you show thier grand_parent_folder_name/patient_001 
+like this when user selects any they can see it 
+
+and in the right panel there are more small panel stacked vertically there 
+they are different when user in patient tab or guidelines tab 
+when user is in patient tab and clicks on a patient profile from search bar you load its patient profile text in left side and on right panel you load 4 things 
+(1) golden reccomendation as this is an input box so keep an input box and tell to input something as save it in data/golden_Reccomendation/patient_id.json (you can get the id in the 1st line of patient profile)
+and if there exist some golden reccomendation of that id in the golden_Reccomendation folder you just show that and keep the input box to append something or delete that user decides and a save button 
+keep in dont let user get to another tab or patient profile before saving
+(2) patient_medical condition which is given as patient_001_medical condition in the same folder or patient_002_medical condition in the same folder 
+(3) reccomendation , see every patient profile has an {
+id:someid on it 1st line or 2nd if you consider { as an line 
+you pick that id then go to output folder and inside it reccomendation folder  and there must be an file name that_id.json that is that patients reccomendation, show that
+(4) and retrieve results for this also use the same patient id in previous step go to output/retrieve_result there you can get that_id.json that is the retieve result show that in frontend 
+
+this all for patient tab 
+and in guidelines tab 
+in when user selects on an guideline in the right panel there would be 3 thing 
+(1) medical condition you can get that in the same folder at same level names guideline_medical_condition or sometimes just medical_conditions.txt but it is at the same level as guideline
+(2) guideline criteria it is also at the same level named guideline_Criteria.txt
+(3) main guidelines.txt for this wait just keep a box I will tell what to do later 
+
+here is an example patient profile 
+{
+  "patient_id": "04712763-1d9d-4bb0-8854-za6a1a1b8330",
+  "patient_name": "Emily Thompson",
+  "age": "36",
+  "gender": "Female",
+  "current_symptoms": "Symmetrically enlarged thyroid, recent onset of mild orbitopathy, fatigue, weight loss, palpitations.",
+  "current_medications": "None",
+  "patient_risk_factors": "No recent exposure to iodine, no family history of thyroid disorders, postpartum 6 months ago.",
+  "lab_reports": "TRAb: Positive (15 IU/L), TSH: <0.01 mIU/L, Free T3: 7.5 pmol/L, Free T4: 22 pmol/L, Thyroglobulin: Normal, RAIU at 24 hours: 45%.",
+  "diagnostic_tests_and_results": "Ultrasonography with color flow Doppler: Increased thyroidal blood flow, consistent with Graves' disease; TSI: Positive",
+  "profile_summary": "Emily Thompson, a 36-year-old female, presents with symptoms of fatigue, weight loss, and palpitations. She has a symmetrically enlarged thyroid and recent onset of mild orbitopathy. Lab reports indicate a positive TRAb and TSI, suppressed TSH, elevated T3 and T4, and normal thyroglobulin levels. RAIU at 24 hours is 45%. Doppler ultrasonography shows increased thyroidal blood flow, consistent with Graves' disease. No recent iodine exposure or family history of thyroid disorders, postpartum 6 months ago."
+}
+
+
+the way you are finding patient_profile is wrong rather regex
+it always patient_profile_some 3 digit number.txt
+
+{
+ patient:{
+   patient_profile_001:{
+    patient_profile_grandparent_folder_name:
+    patient_profile_file_path:
+    medical_condition_path:
+    reccomedation_path:
+    retrieve_result_path:
+   },
+   patient_profile_002:{
+    patient_profile_grandparent_folder_name:
+    patient_profile_file_path:
+    medical_condition_path:
+    reccomedation_path:
+    retrieve_result_path:
+   }
+ }
+ guideline:{
+    diabetes:{
+      guideline1:{
+        parent_file_name:
+        guideline_file_path:
+        guideline_medical_condition_path:
+        guideline_criteria_path:
+        main_guideline_path: 
+      },
+      guideline2:{
+        parent_file_name:
+        guideline_file_path:
+        guideline_medical_condition_path:
+        guideline_criteria_path:
+        main_guideline_path: 
+      }
+    }
+    thyroid:{
+       guideline1:{
+        parent_file_name:
+        guideline_file_path:
+        guideline_medical_condition_path:
+        guideline_criteria_path:
+        main_guideline_path: 
+      },
+      guideline2:{
+        parent_file_name:
+        guideline_file_path:
+        guideline_medical_condition_path:
+        guideline_criteria_path:
+        main_guideline_path: 
+      }
+    }
+ }
+
+}
