@@ -38,7 +38,6 @@ fs.writeFileSync('./fullFileStructure.json', JSON.stringify(fullFileStructure, n
 
 console.log('Full file structure generated successfully.');
 
-
 // Function to process the full file structure and generate patient and guideline JSON
 const generatePatientAndGuidelineData = (fullFileStructure) => {
   const result = {
@@ -52,32 +51,22 @@ const generatePatientAndGuidelineData = (fullFileStructure) => {
       node.children.forEach((child) => processNode(child)); // Process all children recursively
     } else if (node.type === 'file') {
       // Check for patient profiles using regex for patient_profile_<number>.txt
-      const patientProfileMatch = node.name.match(/^patient_profile_\d{3}\.txt$/);
+      const patientProfileMatch = node.name.match(/^patient_profile_(\d{3})\.txt$/);
       if (patientProfileMatch) {
-        const filePath = node.path;
-        const patientProfileData = fs.readFileSync(`./data/${filePath}`, 'utf-8');
+        const patientNumber = patientProfileMatch[1]; // Get the patient number from the file name
+        const profilePath = node.path;
+        const medicalConditionPath = profilePath.replace('.txt', '_medical_conditions.txt');
 
-        // Extract the patient ID from the file content (assuming it's on the first line)
-        const patientIdMatch = patientProfileData.match(/"patient_id":\s*"(.+?)"/);
-        if (patientIdMatch) {
-          const patientId = patientIdMatch[1]; // Extract patient ID
+        // Verify if the medical condition file exists
+        const medicalConditionExists = fs.existsSync(path.join('./src/data', medicalConditionPath));
 
-          const medicalConditionPath = node.path.replace('.txt', '_medical_conditions.txt');
-          const recommendationPath = `output/recommendations/${patientId}.json`;
-          const retrieveResultPath = `output/retrieve_results/${patientId}.json`;
+        // Create a unique key for the patient based on their profile number
+        result.patient[patientNumber] = {
+          patient_profile_file_path: profilePath,
+          medical_condition_path: medicalConditionExists ? medicalConditionPath : 'Not Found',
+        };
 
-          // Verify if the files exist
-          const medicalConditionExists = fs.existsSync(path.join('./data', medicalConditionPath));
-          const recommendationExists = fs.existsSync(path.join('./data', recommendationPath));
-          const retrieveResultExists = fs.existsSync(path.join('./data', retrieveResultPath));
-
-          result.patient[patientId] = {
-            patient_profile_file_path: node.path,
-            medical_condition_path: medicalConditionExists ? medicalConditionPath : 'Not Found',
-            reccomendation_path: recommendationExists ? recommendationPath : 'Not Found',
-            retrieve_result_path: retrieveResultExists ? retrieveResultPath : 'Not Found',
-          };
-        }
+        console.log(`Processed patient profile: patient_profile_${patientNumber}`);
       }
 
       // Check for guidelines (guidelines.txt or guidelines.yaml)
@@ -86,12 +75,12 @@ const generatePatientAndGuidelineData = (fullFileStructure) => {
         const parentFolder = path.basename(path.dirname(node.path));
         const grandParentFolder = path.basename(path.dirname(path.dirname(node.path)));
 
-        const medicalConditionPath = node.path.replace(/guidelines\.(txt|yaml)$/, 'guidelines_medical_condition.txt');
-        const criteriaPath = node.path.replace(/guidelines\.(txt|yaml)$/, 'guidelines_criteria.txt');
+        const medicalConditionPath = node.path.replace(/guidelines\.(txt|yaml)$/, 'medical_conditions.txt');
+        const criteriaPath = node.path.replace(/guidelines\.(txt|yaml)$/, 'criteria.txt');
 
         // Verify if the files exist
-        const medicalConditionExists = fs.existsSync(path.join('./data', medicalConditionPath));
-        const criteriaExists = fs.existsSync(path.join('./data', criteriaPath));
+        const medicalConditionExists = fs.existsSync(path.join('./src/data', medicalConditionPath));
+        const criteriaExists = fs.existsSync(path.join('./src/data', criteriaPath));
 
         result.guideline[parentFolder] = {
           parent_file_name: grandParentFolder,
@@ -100,6 +89,8 @@ const generatePatientAndGuidelineData = (fullFileStructure) => {
           guideline_criteria_path: criteriaExists ? criteriaPath : 'Not Found',
           main_guideline_path: '', // Placeholder for main guideline if necessary
         };
+
+        console.log(`Processed guideline: ${parentFolder}`);
       }
     }
   };

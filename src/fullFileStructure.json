@@ -122,9 +122,14 @@
                             "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml"
                           },
                           {
-                            "name": "medical_conditions.txt",
+                            "name": "guidelines_criteria.txt",
                             "type": "file",
-                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/medical_conditions.txt"
+                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_criteria.txt"
+                          },
+                          {
+                            "name": "guidelines_medical_condition.txt",
+                            "type": "file",
+                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_medical_condition.txt"
                           },
                           {
                             "name": "patients",
@@ -171,9 +176,14 @@
                             "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines.yaml"
                           },
                           {
-                            "name": "medical_conditions.txt",
+                            "name": "guidelines_criteria.txt",
                             "type": "file",
-                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/medical_conditions.txt"
+                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_criteria.txt"
+                          },
+                          {
+                            "name": "guidelines_medical_condition.txt",
+                            "type": "file",
+                            "path": "guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/screening/guidelines_medical_condition.txt"
                           },
                           {
                             "name": "patients",
@@ -229,9 +239,14 @@
                             "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines.yaml"
                           },
                           {
-                            "name": "medical_conditions.txt",
+                            "name": "guidelines_criteria.txt",
                             "type": "file",
-                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/medical_conditions.txt"
+                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_criteria.txt"
+                          },
+                          {
+                            "name": "guidelines_medical_condition.txt",
+                            "type": "file",
+                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/algo_risk_stratification/guidelines_medical_condition.txt"
                           },
                           {
                             "name": "patients",
@@ -278,9 +293,14 @@
                             "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines.yaml"
                           },
                           {
-                            "name": "medical_conditions.txt",
+                            "name": "guidelines_criteria.txt",
                             "type": "file",
-                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/medical_conditions.txt"
+                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_criteria.txt"
+                          },
+                          {
+                            "name": "guidelines_medical_condition.txt",
+                            "type": "file",
+                            "path": "guidelines/diabetes/extracted_guidelines/comprehensive_medical_evaluation/sub_guidelines/comorbidities/guidelines_medical_condition.txt"
                           },
                           {
                             "name": "patients",
@@ -336,9 +356,14 @@
                             "path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines.yaml"
                           },
                           {
-                            "name": "medical_conditions.txt",
+                            "name": "guidelines_criteria.txt",
                             "type": "file",
-                            "path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/medical_conditions.txt"
+                            "path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_criteria.txt"
+                          },
+                          {
+                            "name": "guidelines_medical_condition.txt",
+                            "type": "file",
+                            "path": "guidelines/diabetes/extracted_guidelines/diabetes_care_in_hospital/sub_guidelines/glycemic_management/guidelines_medical_condition.txt"
                           },
                           {
                             "name": "patients",

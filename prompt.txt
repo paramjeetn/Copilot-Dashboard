@@ -133,3 +133,33 @@ it always patient_profile_some 3 digit number.txt
  }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+you are doing it wrong 
+suppose you want to get patient part of json 
+you go to data there you will see guidelines, there you gown two level down , there you will see a folder called extracted_guidelines there you into every folder inside it , and in each folder you will see a sub guidelines, there you will see a patient folder inside it you will get patient_profile_001.txt, patient_medical_condition_001.txt and so on ...
+example path of a patient profile : src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_001.txt
+
+example path of a patient_medical_condition.txt:src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/patients/patient_profile_002_medical_conditions.txt
+
+for guideline part of json 
+
+you go to data there you will see guidelines, there you gown two level down , there you will see a folder called extracted_guidelines there you into every folder inside it , and in each folder you will see a sub guidelines, there you will see a three files, guideline.txt, guidelines_criteria.txt, and guideline_medical_condition.txt 
+save those 
+example guideline.txt path : src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines.yaml
+
+example guideline_medical_conditon path: src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guidelines_medical_condition.txt
+
+example guideline_criteria path : 
+src/data/guidelines/diabetes/extracted_guidelines/ckd/sub_guidelines/manage/guideline_criteria.txt
+
