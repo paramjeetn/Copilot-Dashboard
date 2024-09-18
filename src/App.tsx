@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
-import patientAndGuidelineData from "./patientAndGuidelineData.json";
+import patientAndGuidelineData from "./preprocess/patientAndGuidelineData.json";
 
 const App = () => {
   const [selectedTab, setSelectedTab] = useState<"patient" | "guideline">("patient");
